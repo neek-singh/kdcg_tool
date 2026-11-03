@@ -2,7 +2,7 @@
 
 A lightweight, high-performance web tool to design and export professional A4 cover pages for college seminars, assignments, practical files, and project reports.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FVisionitinstitute%2Fkdcg-tool.git)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fneek-singh%2Fkdcg_tool.git)
 
 ---
 
@@ -24,9 +24,9 @@ A lightweight, high-performance web tool to design and export professional A4 co
 
 ## 🚀 Deployment on Vercel
 
-1. Push this repository to GitHub (`https://github.com/Visionitinstitute/kdcg-tool.git`).
+1. Push this repository to GitHub (`https://github.com/neek-singh/kdcg_tool.git`).
 2. Go to [Vercel](https://vercel.com/) and click **"Add New..."** ➔ **"Project"**.
-3. Import the `Visionitinstitute/kdcg-tool` repository.
+3. Import the `neek-singh/kdcg_tool` repository.
 4. Keep the Framework Preset as **"Other"** (Root Directory `./`).
 5. Click **"Deploy"**!
 
@@ -49,3 +49,4 @@ npx serve .
 ## 📄 License
 
 MIT License. Open for educational institutions, students, and educators.
+
