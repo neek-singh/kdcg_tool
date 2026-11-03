@@ -1,8 +1,8 @@
 const W=595,H=842;
 const getSessionYear=()=>{const d=new Date(),y=d.getFullYear(),s=d.getMonth()>=5?y:y-1;return `Year ${s}-${String((s+1)%100).padStart(2,"0")}`};
 const S={tpl:"classic",yearColor:"#000000",college:"GOVT KALIDAS COLLEGE PRATAPPUR",year:getSessionYear(),name:"GYANEDRA SINGH",cls:"M.A. FIRST SEMESTER",type:"SEMINAR",subject:"MICRO ECONOMICS",by:"",to:"Dr. Meena Gupta",
-subjects:[{subject:"MICRO ECONOMICS",to:"Dr. Meena Gupta"}],activeSubIdx:0,
-font:"Times New Roman",titleColor:"#6F83D8",textColor:"#000000",typeColor:"#000000",subjColor:"#000000",ry:148,tsize:26,logo:204,border:true,florals:true};
+subjects:[{subject:"MICRO ECONOMICS",by:"",to:"Dr. Meena Gupta"}],activeSubIdx:0,
+font:"Times New Roman",titleColor:"#000000",textColor:"#000000",typeColor:"#000000",subjColor:"#000000",ry:148,tsize:26,logo:204,border:true,florals:true};
 const $=id=>document.getElementById(id);
 const wt=()=>S.font==="Rye"?"400":"700";
 const fam=()=>`"${S.font}", "Times New Roman", Times, serif`;
@@ -35,7 +35,7 @@ const FLAT={cy:632,title:800,year:518,name:462,cls:404,type:330,subj:258,b1:160,
 /* ---- DESIGN TEMPLATES: naya template banana ho to yahan ek entry add karein ---- */
 const TPL={
 classic:{n:"Classic Floral",mode:"arc",bg:"#ffffff",small:"#000000",pill:false,P:{cy:632,title:0,year:500,name:432,cls:362,type:280,subj:213,b1:116,b2:88},
- s:{font:"Times New Roman",titleColor:"#6F83D8",yearColor:"#000000",textColor:"#000000",typeColor:"#000000",subjColor:"#000000",ry:148,tsize:26,logo:204},
+ s:{font:"Times New Roman",titleColor:"#000000",yearColor:"#000000",textColor:"#000000",typeColor:"#000000",subjColor:"#000000",ry:148,tsize:26,logo:204},
  deco(c){if(S.border){c.strokeStyle="#555";c.lineWidth=.6;c.strokeRect(8,8,W-16,H-16)}
   if(S.florals)[[26,H-26,1,-1],[W-26,H-26,-1,-1],[26,26,1,1],[W-26,26,-1,1]].forEach(([x,y,sx,sy])=>{c.save();c.translate(x,y);c.scale(sx,sy);corner(c);c.restore()})}},
 modern:{n:"Modern Blue",mode:"flat",bg:"#ffffff",small:"#0F2A5F",pill:true,P:{...FLAT,title:798,cy:630},
@@ -78,7 +78,7 @@ const a="SUBJECT:-",sz=fit(c,a+"  "+curSubj,25,mw);c.font=`${wt()} ${sz}px ${fam
 const wa=c.measureText(a).width,wb=c.measureText(curSubj).width,x0=(W-(wa+14+wb))/2;
 T(c,a,x0,P.subj,sz,S.subjColor,"left");T(c,curSubj,x0+wa+14,P.subj,sz,S.textColor,"left");
 const lx=75,rx=W-75;
-const byName=S.by||S.name;
+const byName=curSub.by||S.by||S.name;
 T(c,"Submitted By",lx,P.b1,18,t.small,"left");
 if(byName)T(c,byName,lx,P.b2,fit(c,byName,17,210),S.textColor,"left",fam(),"700");
 T(c,"Submitted To",rx,P.b1,18,t.small,"right");
@@ -97,7 +97,7 @@ Object.keys(TPL).forEach(k=>{const b=document.createElement("button");b.classNam
 const COURSES=["B.A.","M.A.","B.COM.","B.SC."];
 const SEMESTERS=["FIRST SEMESTER","SECOND SEMESTER","THIRD SEMESTER","FOURTH SEMESTER","FIFTH SEMESTER","SIXTH SEMESTER","1ST YEAR","2ND YEAR","3RD YEAR"];
 const DOC_TYPES=["SEMINAR","ASSIGNMENT","PROJECT REPORT","PRACTICAL FILE","DISSERTATION","INTERNSHIP REPORT","SYNOPSIS"];
-[["name","Student ka naam"],["cls","Class"],["type","Document type"],["by","Submitted By – naam (khali chhod sakte hain)"]].forEach(([k,l])=>{
+[["name","Student ka naam"],["cls","Class"],["type","Document type"]].forEach(([k,l])=>{
 if(k==="cls"){
 const wrap=document.createElement("div");wrap.className="cols";
 wrap.innerHTML=`<label>Course / Degree<select id="i-cls-course">${COURSES.map(c=>`<option value="${c}">${c}</option>`).join("")}</select></label><label>Semester / Year<select id="i-cls-sem">${SEMESTERS.map(s=>`<option value="${s}">${s}</option>`).join("")}<option value="__other__">Other (Apna likhein…)</option></select></label>`;
@@ -143,10 +143,12 @@ const list=$("subs-list");if(!list)return;list.innerHTML="";
 S.subjects.forEach((item,idx)=>{
 const card=document.createElement("div");
 card.className="sub-card"+(idx===S.activeSubIdx?" active":"");
-card.innerHTML=`<div class="sub-head"><span>Subject #${idx+1}</span>${S.subjects.length>1?`<button type="button" class="btn-del-sub" title="Yeh subject hatayein">✕</button>`:""}</div><label>Subject<input type="text" class="inp-sub-name" placeholder="Subject (e.g. MICRO ECONOMICS)" value="${item.subject}"></label><label>Submitted to (Teacher)<input type="text" class="inp-sub-to" placeholder="Teacher (e.g. Dr. Meena Gupta)" value="${item.to}"></label>`;
-const nI=card.querySelector(".inp-sub-name"),tI=card.querySelector(".inp-sub-to");
+card.innerHTML=`<div class="sub-head"><span>Subject #${idx+1}</span>${S.subjects.length>1?`<button type="button" class="btn-del-sub" title="Yeh subject hatayein">✕</button>`:""}</div><label>Subject<input type="text" class="inp-sub-name" placeholder="Subject (e.g. MICRO ECONOMICS)" value="${item.subject}"></label><label>Submitted By – naam (khali chhod sakte hain)<input type="text" class="inp-sub-by" placeholder="${S.name||'Student ka naam'}" value="${item.by||''}"></label><label>Submitted to (Teacher)<input type="text" class="inp-sub-to" placeholder="Teacher (e.g. Dr. Meena Gupta)" value="${item.to}"></label>`;
+const nI=card.querySelector(".inp-sub-name"),bI=card.querySelector(".inp-sub-by"),tI=card.querySelector(".inp-sub-to");
 nI.oninput=()=>{item.subject=nI.value;S.subject=S.subjects[0].subject;S.activeSubIdx=idx;updateSubUI();redraw()};
 nI.onfocus=()=>{if(S.activeSubIdx!==idx){S.activeSubIdx=idx;updateSubUI();redraw()}};
+bI.oninput=()=>{item.by=bI.value;S.by=S.subjects[0].by||"";S.activeSubIdx=idx;updateSubUI();redraw()};
+bI.onfocus=()=>{if(S.activeSubIdx!==idx){S.activeSubIdx=idx;updateSubUI();redraw()}};
 tI.oninput=()=>{item.to=tI.value;S.to=S.subjects[0].to;S.activeSubIdx=idx;updateSubUI();redraw()};
 tI.onfocus=()=>{if(S.activeSubIdx!==idx){S.activeSubIdx=idx;updateSubUI();redraw()}};
 const dB=card.querySelector(".btn-del-sub");
@@ -166,7 +168,8 @@ if(dlBtn){dlBtn.textContent=n>1?`A4 PDF Download (${n} Pages - Sabhi Subjects)`:
 
 $("add-sub-btn").onclick=()=>{
 const defT=S.subjects[0]?S.subjects[0].to:"";
-S.subjects.push({subject:"",to:defT});
+const defB=S.subjects[0]?S.subjects[0].by:"";
+S.subjects.push({subject:"",by:defB,to:defT});
 S.activeSubIdx=S.subjects.length-1;
 renderSubs();
 const inps=document.querySelectorAll(".inp-sub-name");
