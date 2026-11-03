@@ -1,0 +1,17 @@
+{
+  "name": "Seminar & Assignment Cover Page Maker",
+  "short_name": "Cover Maker",
+  "description": "Free online A4 PDF cover page maker for college seminars, assignments, practical files, and project reports.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f5fb",
+  "theme_color": "#4b5cb8",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234b5cb8'/><path d='M30 25 h40 v50 h-40 z' fill='white'/><path d='M38 38 h24 M38 48 h24 M38 58 h16' stroke='%234b5cb8' stroke-width='4' stroke-linecap='round'/></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
+
