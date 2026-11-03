@@ -78,7 +78,7 @@ const a="SUBJECT:-",sz=fit(c,a+"  "+curSubj,25,mw);c.font=`${wt()} ${sz}px ${fam
 const wa=c.measureText(a).width,wb=c.measureText(curSubj).width,x0=(W-(wa+14+wb))/2;
 T(c,a,x0,P.subj,sz,S.subjColor,"left");T(c,curSubj,x0+wa+14,P.subj,sz,S.textColor,"left");
 const lx=75,rx=W-75;
-const byName=curSub.by||S.by||S.name;
+const byName=(curSub&&curSub.by)?curSub.by:(S.by||"");
 T(c,"Submitted By",lx,P.b1,18,t.small,"left");
 if(byName)T(c,byName,lx,P.b2,fit(c,byName,17,210),S.textColor,"left",fam(),"700");
 T(c,"Submitted To",rx,P.b1,18,t.small,"right");
@@ -143,7 +143,7 @@ const list=$("subs-list");if(!list)return;list.innerHTML="";
 S.subjects.forEach((item,idx)=>{
 const card=document.createElement("div");
 card.className="sub-card"+(idx===S.activeSubIdx?" active":"");
-card.innerHTML=`<div class="sub-head"><span>Subject #${idx+1}</span>${S.subjects.length>1?`<button type="button" class="btn-del-sub" title="Yeh subject hatayein">✕</button>`:""}</div><label>Subject<input type="text" class="inp-sub-name" placeholder="Subject (e.g. MICRO ECONOMICS)" value="${item.subject}"></label><label>Submitted By – naam (khali chhod sakte hain)<input type="text" class="inp-sub-by" placeholder="${S.name||'Student ka naam'}" value="${item.by||''}"></label><label>Submitted to (Teacher)<input type="text" class="inp-sub-to" placeholder="Teacher (e.g. Dr. Meena Gupta)" value="${item.to}"></label>`;
+card.innerHTML=`<div class="sub-head"><span>Subject #${idx+1}</span>${S.subjects.length>1?`<button type="button" class="btn-del-sub" title="Yeh subject hatayein">✕</button>`:""}</div><label>Subject<input type="text" class="inp-sub-name" placeholder="Subject (e.g. MICRO ECONOMICS)" value="${item.subject}"></label><label>Submitted By (Khali chhod sakte hain)<input type="text" class="inp-sub-by" placeholder="Khali chhod sakte hain" value="${item.by||''}"></label><label>Submitted to (Teacher)<input type="text" class="inp-sub-to" placeholder="Teacher (e.g. Dr. Meena Gupta)" value="${item.to}"></label>`;
 const nI=card.querySelector(".inp-sub-name"),bI=card.querySelector(".inp-sub-by"),tI=card.querySelector(".inp-sub-to");
 nI.oninput=()=>{item.subject=nI.value;S.subject=S.subjects[0].subject;S.activeSubIdx=idx;updateSubUI();redraw()};
 nI.onfocus=()=>{if(S.activeSubIdx!==idx){S.activeSubIdx=idx;updateSubUI();redraw()}};
